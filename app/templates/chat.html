@@ -52,9 +52,8 @@
     // var $loginPage = $('.login.page'); // The login page
     var $chatPage = $('.chat.page'); // The chatroom page
     $chatPage.show();
-    // setUsername();
     // Prompt for setting a username
-    var username = "james";
+    var username = "{{name}}";
     var connected = false;
     var typing = false;
     var lastTypingTime;
@@ -64,10 +63,10 @@
     setUsername();
     function addParticipantsMessage (data) {
       var message = '';
-      if (data.numUsers === 1) {
+      if (data.numUsers % 2 == 1) {
         message += "Waiting for another user";
       } else {
-        message += 'A member has joined';
+        message += "We've found a user for you";
       }
       log(message);
     }

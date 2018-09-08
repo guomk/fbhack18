@@ -19,6 +19,7 @@ def index():
             room_dict[str(i)] += 1
             if room_dict[str(i)] == 2:
                 i += 1
+        print(request.sid)
         print(room_dict)
         return redirect(url_for('.chat'))
     elif request.method == 'GET':

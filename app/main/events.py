@@ -1,4 +1,4 @@
-from flask import session
+from flask import session, request
 from flask_socketio import emit, join_room, leave_room
 from .. import socketio
 
@@ -9,6 +9,7 @@ def joined(message):
     A status message is broadcast to all people in the room."""
     room = session.get('room')
     join_room(room)
+    print('***' + request.sid + '***')
     emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
 
@@ -26,5 +27,5 @@ def left(message):
     A status message is broadcast to all people in the room."""
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + ' has left the room. The conversation is end'}, room=room)
+    emit('status', {'msg': session.get('name') + ' <h1>has left the room. The conversation is end<h1>'}, room=room)
 

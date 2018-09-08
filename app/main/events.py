@@ -41,7 +41,7 @@ def add_user(data):
     number_of_users += 1;
 
     emit('login', {'numUsers': number_of_users})
-    emit('user joined', {'username': session['username'], 'numUsers': number_of_users}, broadcast=True)
+    emit('user joined', {'username': session['username'], 'numUsers': number_of_users}, broadcast=False)
 
 
 @socketio.on('typing', namespace='/chat')

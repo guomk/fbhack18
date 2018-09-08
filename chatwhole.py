@@ -79,17 +79,16 @@ def user_connected():
     room = session.get('room')
     print('User connected')
 
-@socketio.on('joined', namespace='/chat')
-def joined(message):
-    """Sent by clients when they enter a room.
-    A status message is broadcast to all people in the room."""
-    global room_dict
-    room = session.get('room')
-    print(request.sid)
-    join_room(room)
-    # print('***' + request.sid + '***')
-    # print(room_dict)
-    emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
+# @socketio.on('joined', namespace='/chat')
+# def joined(message):
+#     """Sent by clients when they enter a room.
+#     A status message is broadcast to all people in the room."""
+#
+#     # print('***' + request.sid + '***')
+#     # print(room_dict)
+#
+#     #????
+#     emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
 
 # When client emits 'add user' this listens and executes
@@ -98,14 +97,17 @@ def add_user(data):
     print('Adding User')
     global usernames
     global number_of_users
-
-    session['username'] = data
+    global room_dict
+    room = session.get('room')
+    print(request.sid)
+    join_room(room)
+    session['username'] = session.get('name')
     usernames[data] = session['username']
 
     number_of_users += 1
 
     emit('login', {'numUsers': number_of_users})
-    emit('user joined', {'username': session['username'], 'numUsers': number_of_users}, broadcast=False)
+    emit('user joined', {'username': session['username'],'numUserInRoom':room_dict[room][0]}, room=room)
 
 
 @socketio.on('typing', namespace='/chat')
@@ -136,7 +138,7 @@ def disconnect():
     try:
         del usernames[session['username']]
         number_of_users -= 1
-        emit('user left', {'username': session['username'], 'numUsers': number_of_users}, room=room)
+        emit('user left', {'username': session['username'],'left':room_dict[room][1]}, room=room)
 
     except:
         pass
@@ -149,6 +151,14 @@ def new_message(data):
     emit('new message',
          {'username': session['username'],
           'message': data}, room=room)
+
+# @socketio.on('find match',namespace='/chat')
+# def broadcast_match():
+#     global room_dict
+#     room = session.get('room')
+#     if room_dict[room][0] == 2:
+#         emit('match found',room=room)
+
 
 @socketio.on('timer', namespace='/chat')
 def timer(data):

@@ -63,11 +63,7 @@
     setUsername();
     function addParticipantsMessage (data) {
       var message = '';
-      if (data.numUsers % 2 == 1) {
-        message += "Waiting for another user";
-      } else {
-        message += "We've found a user for you";
-      }
+      message += "Waiting for another user";
       log(message);
     }
 
@@ -220,7 +216,7 @@
          hash = username.charCodeAt(i) + (hash << 5) - hash;
       }
       // Calculate color
-      var index = Math.random();
+      var index = Math.abs(hash% COLORS.length);
       return COLORS[index];
     }
 
@@ -271,7 +267,7 @@
       });
       addParticipantsMessage(data);
       $chatPage.show();
-      socket.emit('joined', {});
+      //socket.emit('joined', {});
     });
 
     // Whenever the server emits 'new message', update the chat body
@@ -282,13 +278,19 @@
     // Whenever the server emits 'user joined', log it in the chat body
     socket.on('user joined', function (data) {
       log(data.username + ' joined');
-      addParticipantsMessage(data);
+      if (data.numUserInRoom===2){
+        log("We've found someone that you could talk to")
+          }
     });
+
+//    socket.on('match found',function () {
+//        log("We've found someone that you could talk to");
+//    });
 
     // Whenever the server emits 'user left', log it in the chat body
     socket.on('user left', function (data) {
       log(data.username + ' left');
-      addParticipantsMessage(data);
+      log("Conversation ends. Please start again.");
       removeChatTyping(data);
     });
 

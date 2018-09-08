@@ -4,11 +4,13 @@
   <meta charset="UTF-8">
   <title>Socket.IO Chat Example</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+
 </head>
 <body>
   <ul class="pages">
 
     <li class="chat page">
+        <button class="inputButton" type="button"  onclick="window.location.href='./'">Leave the chat</button>
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>

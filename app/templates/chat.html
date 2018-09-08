@@ -81,7 +81,7 @@
         // $loginPage.fadeOut();
         // $chatPage.show();
         // $loginPage.off('click');
-        $currentInput = $inputMessage.focus();
+
 
         // Tell the server your username
         socket.emit('add user', username);
@@ -221,7 +221,7 @@
          hash = username.charCodeAt(i) + (hash << 5) - hash;
       }
       // Calculate color
-      var index = Math.abs(hash % COLORS.length);
+      var index = Math.random();
       return COLORS[index];
     }
 

@@ -1,6 +1,8 @@
 from flask import session, request
-from flask_socketio import emit, join_room, leave_room
+from flask_socketio import emit, join_room, leave_room, rooms, close_room
 from .. import socketio
+from .routes import room_dict
+# from flask.ext.socketio import rooms
 
 usernames = {}
 number_of_users = 0
@@ -14,9 +16,12 @@ def user_connected():
 def joined(message):
     """Sent by clients when they enter a room.
     A status message is broadcast to all people in the room."""
+    global room_dict
     room = session.get('room')
     print(request.sid)
     join_room(room)
+    # print('***' + request.sid + '***')
+    print(room_dict)
     emit('status', {'msg': session.get('name') + ' has entered the room.'}, room=room)
 
 # When client emits 'add user' this listens and executes
@@ -76,7 +81,9 @@ def new_message(data):
 def left(message):
     """Sent by clients when they leave a room.
     A status message is broadcast to all people in the room."""
+    global room_dict
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + ' has left the room. The conversation is end'}, room=room)
+    emit('status', {'msg': session.get('name') + ' <h1>has left the room. The conversation is end<h1>'}, room=room)
+    close_room(room)
 

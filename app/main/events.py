@@ -38,7 +38,7 @@ def add_user(data):
     session['username'] = data
     usernames[data] = session['username']
 
-    number_of_users += 1;
+    number_of_users += 1
 
     emit('login', {'numUsers': number_of_users})
     emit('user joined', {'username': session['username'], 'numUsers': number_of_users}, broadcast=False)

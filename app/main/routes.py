@@ -13,18 +13,20 @@ def index():
     if form.validate_on_submit():
         session['name'] = form.name.data
         session['room'] = i             # Should be a random number
+
         if str(i) not in room_dict.keys():
             room_dict[str(i)] = 1
         else:
             room_dict[str(i)] += 1
             if room_dict[str(i)] == 2:
                 i += 1
-        print(request.sid)
-        print(room_dict)
+        # print(request.sid)
+        # print(room_dict)
         return redirect(url_for('.chat'))
     elif request.method == 'GET':
         form.name.data = session.get('name', '')
         form.room.data = session.get('room', '')
+
     return render_template('index.html', form=form)
 
 
@@ -36,4 +38,4 @@ def chat():
     room = session.get('room', '')
     if name == '' or room == '':
         return redirect(url_for('.index'))
-    return render_template('chat.html', name=name, room=room)
+    return render_template('chat.html', name=name, room=room, rooms=room_dict)

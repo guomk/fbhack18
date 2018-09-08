@@ -5,12 +5,14 @@ from .routes import room_dict
 # from flask.ext.socketio import rooms
 
 usernames = {}
-number_of_users = 0
+number_of_users = 1
 # When the client emits 'connection', this listens and executes
-@socketio.on('connection', namespace='/chat')
+@socketio.on('connect', namespace='/chat')
 def user_connected():
 	room = session.get('room')
 	print('User connected')
+	# emit('login', { 'numUsers' : number_of_users })
+	# emit('user joined', { 'username' : session['name'], 'numUsers': number_of_users }, broadcast=True)
 
 @socketio.on('joined', namespace='/chat')
 def joined(message):

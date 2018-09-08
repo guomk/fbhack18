@@ -6,7 +6,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="https://getbootstrap.com/docs/4.0/examples/cover/cover.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
         <script>
         var colors = [[62,35,255],
           [60,255,60],
@@ -68,23 +72,31 @@
 
         setInterval(updateGradient,10);
     </script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+
     </head>
 
     <body class="text-center" id="gradient" data-gr-c-s-loaded="true" >
 
-    <div class="cover-container" style="margin-top:20%;">
+    <div class="container" style="margin-top:20%;">
 
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading">Welcome to XXX</h1>
+      <main role="main" class="">
+          <div class="container col-lg-6 col-sm-12">
+              <h1 class="cover-heading">Meet & Miss</h1>
+          </div>
 
-          <h3 class="title animated fadeInUp">What's your name?</h3>
-          <form method="POST" class="input-group animated fadeInUp">
+            <div class="container col-lg-4 col-md-9 col-sm-12">
+                <h3 class="title animated fadeInUp">What's your name?</h3>
+                <form method="POST" class="input-group animated fadeInUp">
 
-            {{ form.hidden_tag() }}
-            {{ form.name(class_='form-control trans') }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
-            <!-- {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br> -->
-            {{ form.submit(class_='btn btn-dark') }}
-          </form>
+                {{ form.hidden_tag() }}
+                {{ form.name(class_='form-control trans') }} {% for error in form.name.errors %}{{ error }}{% endfor %}<br>
+                <!-- {{ form.room.label }}: {{ form.room() }} {% for error in form.room.errors %}{{ error }}{% endfor %}<br> -->
+                {{ form.submit(class_='btn btn-dark') }}
+                </form>
+            </div>
+
+
 
       </main>
     </div>
@@ -94,10 +106,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-    <script src="../../assets/js/vendor/popper.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
 
 
 </body>

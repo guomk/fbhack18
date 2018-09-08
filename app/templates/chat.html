@@ -5,13 +5,16 @@
   <title>Socket.IO Chat Example</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+</script>
   <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
 
 </head>
 <body id="bg">
-        <button class="btn btn-info btn-circle btn-xl">
+        <button class="btn btn-info btn-circle btn-xl" onclick="window.location.href='./'">
         X
         </button>
 
@@ -44,11 +47,14 @@
 
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
+    // var COLORS = [
+    //   '#e21400', '#91580f', '#f8a700', '#f78b00',
+    //   '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+    //   '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+    // ];
     var COLORS = [
-      '#e21400', '#91580f', '#f8a700', '#f78b00',
-      '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-      '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
+        '#d5d9ba','#c7bfbf','#646993','#c7ba99'
+        ];
 
     var room = "{{ room }}";
 
@@ -72,6 +78,8 @@
 
     var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
     setUsername();
+
+
     function addParticipantsMessage (data) {
       var message = '';
       message += "Waiting for another user";
@@ -315,6 +323,8 @@
       removeChatTyping(data);
     });
   });
+
+
 
   </script>
 

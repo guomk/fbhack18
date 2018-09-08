@@ -3,7 +3,14 @@
 * {
   box-sizing: border-box;
 }
-
+.cover-heading {
+  width: 100%;
+  max-width: 100em;
+}
+.container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
 html {
   font-weight: 300;
   -webkit-font-smoothing: antialiased;

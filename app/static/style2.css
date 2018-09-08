@@ -11,8 +11,8 @@ html {
 
 html, input {
     background-color: #fff8f0;
-  font-family:
-    "HelveticaNeue-Light",
+    font-family:
+    "Helvetica Neue",
     "Helvetica Neue Light",
     "Helvetica Neue",
     Helvetica,
@@ -61,7 +61,7 @@ ul {
 }
 
 .log {
-  color: #ffcf99;
+  color: rgba(255,255,255,0.7);
   font-size: 70%;
   margin: 5px;
   text-align: center;

@@ -2,15 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Socket.IO Chat Example</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+  <title>M&M</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style2.css') }}">
 
 </head>
-<body>
+<body id="bg">
+        <button class="btn btn-info btn-circle btn-xl" onclick="window.location.href='./'">
+        X
+        </button>
+
+
   <ul class="pages">
 
     <li class="chat page">
-        <button class="inputButton" type="button"  onclick="window.location.href='./'">Leave the chat</button>
+
       <div class="chatArea">
         <ul class="messages"></ul>
       </div>
@@ -27,6 +37,7 @@
   </ul>
   <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
   <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.7/socket.io.min.js"></script>
+
   <!--<script type="text/javascript" src="{{ url_for('static', filename='main.js') }}"></script>-->
   <script type="text/javascript">
     $(function() {
@@ -35,11 +46,16 @@
 
     var FADE_TIME = 150; // ms
     var TYPING_TIMER_LENGTH = 400; // ms
+    // var COLORS = [
+    //   '#e21400', '#91580f', '#f8a700', '#f78b00',
+    //   '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
+    //   '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
+    // ];
     var COLORS = [
-      '#e21400', '#91580f', '#f8a700', '#f78b00',
-      '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
-      '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
-    ];
+        '#ff9933','#669999','#cc9999',
+        '#993300','#cc6633','#999966',
+        '#669933','#9999cc'
+        ];
 
     var room = "{{ room }}";
 
@@ -63,6 +79,8 @@
 
     var socket = io.connect('http://' + document.domain + ':' + location.port + namespace);
     setUsername();
+
+
     function addParticipantsMessage (data) {
       var message = '';
       message += "Waiting for another user";
@@ -263,7 +281,7 @@
     socket.on('login', function (data) {
       connected = true;
       // Display the welcome message
-      var message = "Welcome to Socket.IO Chat – ";
+      var message = "Welcome to Meet & Miss ";
       log(message, {
         prepend: true
       });
@@ -307,6 +325,9 @@
     });
   });
 
+
+
   </script>
+
 </body>
 </html>

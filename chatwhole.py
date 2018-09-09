@@ -1,24 +1,27 @@
 from app import create_app, socketio
+
 app = create_app(debug=True)
 from flask_socketio import emit, join_room, leave_room, rooms, close_room
 from flask_wtf import Form
 from wtforms.fields import StringField, SubmitField, HiddenField
 from wtforms.validators import Required
 
+
 class LoginForm(Form):
     """Accepts a nickname and a room."""
     name = StringField('Name', validators=[Required()])
     room = HiddenField()
     submit = SubmitField('Enter Chatroom')
+
+
 from flask import session, redirect, url_for, render_template, request
-
-
-
 
 usernames = {}
 number_of_users = 0
 i = 0
 room_dict = {}
+
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     """Login form to enter a room."""
@@ -70,14 +73,12 @@ def chat():
     return render_template('chat.html', name=name, room=room, rooms=room_dict)
 
 
-
-
-
 # When the client emits 'connection', this listens and executes
 @socketio.on('connect', namespace='/chat')
 def user_connected():
     room = session.get('room')
     print('User connected')
+
 
 # @socketio.on('joined', namespace='/chat')
 # def joined(message):
@@ -107,7 +108,7 @@ def add_user(data):
     number_of_users += 1
 
     emit('login', {'numUsers': number_of_users})
-    emit('user joined', {'username': session['username'],'numUserInRoom':room_dict[room][0]}, room=room)
+    emit('user joined', {'username': session['username'], 'numUserInRoom': room_dict[room][0]}, room=room)
 
 
 @socketio.on('typing', namespace='/chat')
@@ -138,7 +139,7 @@ def disconnect():
     try:
         del usernames[session['username']]
         number_of_users -= 1
-        emit('user left', {'username': session['username'],'left':room_dict[room][1]}, room=room)
+        emit('user left', {'username': session['username'], 'left': room_dict[room][1]}, room=room)
 
     except:
         pass
@@ -152,6 +153,7 @@ def new_message(data):
          {'username': session['username'],
           'message': data}, room=room)
 
+
 # @socketio.on('find match',namespace='/chat')
 # def broadcast_match():
 #     global room_dict
@@ -160,13 +162,13 @@ def new_message(data):
 #         emit('match found',room=room)
 
 
-@socketio.on('timer', namespace='/chat')
-def timer(data):
-    room = session.get('room')
-    print("*** timer executed ***")
-    emit('new message',
-         {'username': session['username'],
-          'message': data}, room=room, broadcast=True)
+# @socketio.on('timer', namespace='/chat')
+# def timer(data):
+#     room = session.get('room')
+#     print("*** timer executed ***")
+#     emit('new message',
+#          {'username': session['username'],
+#           'message': data}, room=room, broadcast=True)
 
 
 @socketio.on('left', namespace='/chat')
@@ -176,21 +178,10 @@ def left(message):
     global room_dict
     room = session.get('room')
     leave_room(room)
-    emit('status', {'msg': session.get('name') + ' <h1>has left the room. The conversation is end<h1>'}, room=room)
+    emit('status', {'msg': session.get('name') + ' has left the room. The conversation is end'}, room=room)
     close_room(room)
-
-
-
-
-
-
-
-
-
 
 
 
 if __name__ == '__main__':
     socketio.run(app)
-
-
